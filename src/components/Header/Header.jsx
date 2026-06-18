@@ -18,10 +18,10 @@ function Header() {
         </Link>
         <nav className="header__nav">
           <NavLink to="/" end className={getNavClass}>
-            Browse
-          </NavLink>
-          <NavLink to="/completed" className={getNavClass}>
             Completed
+          </NavLink>
+          <NavLink to="/browse" className={getNavClass}>
+            Browse
           </NavLink>
         </nav>
       </div>
