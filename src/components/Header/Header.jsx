@@ -23,6 +23,9 @@ function Header() {
           <NavLink to="/browse" className={getNavClass}>
             Browse
           </NavLink>
+          <NavLink to="/workouts" className={getNavClass}>
+            Workouts
+          </NavLink>
         </nav>
       </div>
     </header>

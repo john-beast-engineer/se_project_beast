@@ -1,6 +1,6 @@
 import "./ExerciseModal.css";
 
-function ExerciseModal({ exercise, onClose, onComplete }) {
+function ExerciseModal({ exercise, onClose, onAddToWorkout, isBuildMode }) {
   const name = exercise.translations[0]?.name;
   const category = exercise.category?.name;
   const imageUrl = exercise.images[0]?.image;
@@ -20,13 +20,15 @@ function ExerciseModal({ exercise, onClose, onComplete }) {
             className="modal__description"
             dangerouslySetInnerHTML={{ __html: description }}
           />
-          <button
-            className="modal__complete-btn"
-            type="button"
-            onClick={onComplete}
-          >
-            Mark Completed
-          </button>
+          {isBuildMode && (
+            <button
+              className="modal__complete-btn"
+              type="button"
+              onClick={() => onAddToWorkout(exercise)}
+            >
+              Add to Workout
+            </button>
+          )}
         </div>
       </div>
     </div>

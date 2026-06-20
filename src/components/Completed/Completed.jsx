@@ -1,16 +1,16 @@
 import "./Completed.css";
 import { Link } from "react-router-dom";
-import ActivityCard from "../ActivityCard/ActivityCard";
-import { getCompleted } from "../../utils/storage.js";
+import WorkoutCard from "../WorkoutCard/WorkoutCard.jsx";
+import { getWorkouts } from "../../utils/storage.js";
 
 function Completed() {
-  const completedExercises = getCompleted();
+  const completedWorkouts = getWorkouts().filter((w) => w.completed);
 
   return (
     <main className="completed">
       <h2>Completed workouts</h2>
 
-      {completedExercises.length === 0 ? (
+      {completedWorkouts.length === 0 ? (
         <div className="completed__empty">
           <p>No workouts conquered yet.</p>
           <Link to="/browse" className="completed__empty-link">
@@ -19,8 +19,8 @@ function Completed() {
         </div>
       ) : (
         <ul className="completed__list">
-          {completedExercises.map((exercise) => (
-            <ActivityCard key={exercise.id} exercise={exercise} />
+          {completedWorkouts.map((workout) => (
+            <WorkoutCard key={workout.id} workout={workout} />
           ))}
         </ul>
       )}

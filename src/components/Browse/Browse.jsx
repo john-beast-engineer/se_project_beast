@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import ActivityCard from "../ActivityCard/ActivityCard";
 import ExerciseModal from "../ExerciseModal/ExerciseModal.jsx";
+import SetsRepsModal from "../SetsRepsModal/SetsRepsModal.jsx";
 import WorkoutNameModal from "../WorkoutNameModal/WorkoutNameModal.jsx";
 import {
   getCompleted,
@@ -16,6 +17,7 @@ function Browse() {
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [draftWorkout, setDraftWorkout] = useState(null);
   const [isNamingOpen, setIsNamingOpen] = useState(false);
+  const [pendingExercise, setPendingExercise] = useState(null);
 
   useEffect(() => {
     getExercises()
@@ -43,26 +45,40 @@ function Browse() {
   };
 
   const handleCreateWorkout = (name) => {
-    setDraftWorkout({ name, exercises: [] });
+    setDraftWorkout({ id: Date.now(), name, exercises: [] }); // NEW: id
     setIsNamingOpen(false);
   };
 
-  const handleAddToWorkout = (exercise) => {
+  const handleStartAdd = (exercise) => {
+    setPendingExercise(exercise);
+  };
+
+  const handleConfirmAdd = (sets, reps) => {
     const alreadyAdded = draftWorkout.exercises.some(
-      (ex) => ex.id === exercise.id,
+      (ex) => ex.id === pendingExercise.id,
     );
     if (!alreadyAdded) {
       setDraftWorkout({
         ...draftWorkout,
-        exercises: [...draftWorkout.exercises, exercise],
+        exercises: [
+          ...draftWorkout.exercises,
+          { ...pendingExercise, sets, reps },
+        ],
       });
     }
+
+    setPendingExercise(null);
   };
 
   const handleSaveWorkout = () => {
     const workouts = getWorkouts();
     saveWorkouts([...workouts, draftWorkout]);
     setDraftWorkout(null);
+  };
+
+  const handleAddFromDetail = (exercise) => {
+    setSelectedExercise(null); // close the detail modal
+    setPendingExercise(exercise); // open SetsRepsModal — your existing add flow
   };
 
   return (
@@ -99,7 +115,7 @@ function Browse() {
             key={exercise.id}
             exercise={exercise}
             onCardClick={handleCardClick}
-            onCardAdd={handleAddToWorkout}
+            onCardAdd={handleStartAdd}
             isBuildMode={draftWorkout !== null}
           />
         ))}
@@ -109,7 +125,16 @@ function Browse() {
         <ExerciseModal
           exercise={selectedExercise}
           onClose={handleCloseModal}
-          onComplete={handleComplete}
+          onAddToWorkout={handleAddFromDetail} // NEW (replaces onComplete)
+          isBuildMode={draftWorkout !== null} // NEW
+        />
+      )}
+
+      {pendingExercise && (
+        <SetsRepsModal
+          exercise={pendingExercise}
+          onConfirm={handleConfirmAdd}
+          onClose={() => setPendingExercise(null)}
         />
       )}
 
