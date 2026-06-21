@@ -1,12 +1,11 @@
+import { getEnglishName } from "../../utils/wgerApi.js";
 import "./ActivityCard.css";
 import logo from "../../assets/logo1.png";
 
 function ActivityCard({ exercise, onCardClick, onCardAdd, isBuildMode }) {
-  // ✍️ Wire these to the wger paths — same idea as reading item.name in
-  //    ItemCard, just nested deeper. The ?. keeps a missing piece from crashing the card.
-  const name = exercise.translations[0]?.name; //      → exercise.translations[0]?.name
-  const category = exercise.category?.name; //  → exercise.category?.name
-  const imageUrl = exercise.images[0]?.image || logo; //  → exercise.images[0]?.image   ⚠️ can be empty
+  const name = getEnglishName(exercise);
+  const category = exercise.category?.name;
+  const imageUrl = exercise.images[0]?.image || logo;
 
   const handleClick = () => {
     onCardClick?.(exercise);

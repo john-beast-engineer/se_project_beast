@@ -1,10 +1,11 @@
+import { getEnglishName, getEnglishDescription } from "../../utils/wgerApi.js";
 import "./ExerciseModal.css";
 
 function ExerciseModal({ exercise, onClose, onAddToWorkout, isBuildMode }) {
-  const name = exercise.translations[0]?.name;
+  const name = getEnglishName(exercise);
   const category = exercise.category?.name;
   const imageUrl = exercise.images[0]?.image;
-  const description = exercise.translations[0]?.description;
+  const description = getEnglishDescription(exercise);
 
   return (
     <div className="modal modal_opened">

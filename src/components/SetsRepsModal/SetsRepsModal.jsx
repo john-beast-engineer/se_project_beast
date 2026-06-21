@@ -1,11 +1,12 @@
 import "./SetsRepsModal.css";
+import { getEnglishName } from "../../utils/wgerApi.js";
 import { useState } from "react";
 
 function SetsRepsModal({ exercise, onConfirm, onClose }) {
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
 
-  const name = exercise.translations[0]?.name;
+  const name = getEnglishName(exercise);
 
   const handleSubmit = () => {
     if (sets && reps) {

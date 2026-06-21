@@ -13,4 +13,12 @@ function getExercises() {
   );
 }
 
+export function getEnglishName(exercise) {
+  return exercise.translations.find((t) => t.language === 2)?.name;
+}
+
+export function getEnglishDescription(exercise) {
+  return exercise.translations.find((t) => t.language === 2)?.description;
+}
+
 export { getExercises };

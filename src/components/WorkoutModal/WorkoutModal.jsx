@@ -1,3 +1,4 @@
+import { getEnglishName } from "../../utils/wgerApi.js";
 import "./WorkoutModal.css";
 
 function WorkoutModal({ workout, onClose, onComplete }) {
@@ -16,7 +17,7 @@ function WorkoutModal({ workout, onClose, onComplete }) {
         <ul className="workout-modal__list">
           {workout.exercises.map((exercise, index) => (
             <li key={index} className="workout-modal__item">
-              {exercise.translations[0]?.name}
+              {getEnglishName(exercise)}
               {exercise.sets && ` - ${exercise.sets} x ${exercise.reps}`}
             </li>
           ))}
