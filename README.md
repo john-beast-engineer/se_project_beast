@@ -10,7 +10,7 @@ https://john-beast-engineer.github.io/se_project_beast/
 
 ## Project Pitch Video
 
-[Watch the pitch »](PASTE_GOOGLE_DRIVE_LINK_HERE)
+[Watch the pitch »]https://www.loom.com/share/87fbc59adf0f4601927c4863bf16edb5
 
 ## Features
 
