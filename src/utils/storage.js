@@ -1,22 +1,45 @@
-const STORAGE_KEY = "bethebeast_completed";
-const WORKOUTS_KEY = "bethebeast_workouts";
+import { getToken } from "./token.js";
 
-function getCompleted() {
-  const stored = localStorage.getItem(STORAGE_KEY);
-  return stored ? JSON.parse(stored) : [];
+const BASE_URL = import.meta.env.PROD
+  ? "https://se-project-beast-express.onrender.com"
+  : "http://localhost:3001";
+
+function checkResponse(res) {
+  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 }
 
-function saveCompleted(exercises) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(exercises));
+function authHeaders() {
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${getToken()}`,
+  };
 }
 
 export function getWorkouts() {
-  const stored = localStorage.getItem(WORKOUTS_KEY);
-  return stored ? JSON.parse(stored) : [];
+  return fetch(`${BASE_URL}/workouts`, {
+    headers: authHeaders(),
+  }).then(checkResponse);
 }
 
-export function saveWorkouts(workouts) {
-  localStorage.setItem(WORKOUTS_KEY, JSON.stringify(workouts));
+export function createWorkout({ name, exercises }) {
+  return fetch(`${BASE_URL}/workouts`, {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify({ name, exercises }),
+  }).then(checkResponse);
 }
 
-export { getCompleted, saveCompleted };
+export function updateWorkout(id, { completed }) {
+  return fetch(`${BASE_URL}/workouts/${id}`, {
+    method: "PATCH",
+    headers: authHeaders(),
+    body: JSON.stringify({ completed }),
+  }).then(checkResponse);
+}
+
+export function deleteWorkout(id) {
+  return fetch(`${BASE_URL}/workouts/${id}`, {
+    method: "DELETE",
+    headers: authHeaders(),
+  }).then(checkResponse);
+}

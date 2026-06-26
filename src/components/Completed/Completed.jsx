@@ -1,10 +1,19 @@
 import "./Completed.css";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import WorkoutCard from "../WorkoutCard/WorkoutCard.jsx";
 import { getWorkouts } from "../../utils/storage.js";
 
 function Completed() {
-  const completedWorkouts = getWorkouts().filter((w) => w.completed);
+  const [workouts, setWorkouts] = useState([]);
+
+  useEffect(() => {
+    getWorkouts()
+      .then((data) => setWorkouts(data))
+      .catch(console.error);
+  }, []);
+
+  const completedWorkouts = workouts.filter((w) => w.completed);
 
   return (
     <main className="completed">
@@ -20,7 +29,7 @@ function Completed() {
       ) : (
         <ul className="completed__list">
           {completedWorkouts.map((workout) => (
-            <WorkoutCard key={workout.id} workout={workout} />
+            <WorkoutCard key={workout._id} workout={workout} />
           ))}
         </ul>
       )}

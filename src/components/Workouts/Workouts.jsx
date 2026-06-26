@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import WorkoutCard from "../WorkoutCard/WorkoutCard.jsx";
 import WorkoutModal from "../WorkoutModal/WorkoutModal.jsx";
 import { Link } from "react-router-dom";
-import { getWorkouts, saveWorkouts } from "../../utils/storage.js";
+import { getWorkouts, updateWorkout } from "../../utils/storage.js";
 import "./Workouts.css";
 
 function Workouts() {
-  const [workouts, setWorkouts] = useState(getWorkouts());
+  const [workouts, setWorkouts] = useState([]);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
+
+  useEffect(() => {
+    getWorkouts()
+      .then((data) => setWorkouts(data))
+      .catch(console.error);
+  }, []);
 
   const handleCardClick = (workout) => {
     setSelectedWorkout(workout);
@@ -16,12 +22,16 @@ function Workouts() {
   const handleCloseModal = () => setSelectedWorkout(null);
 
   const handleCompleteWorkout = () => {
-    const updated = workouts.map((w) =>
-      w.id === selectedWorkout.id ? { ...w, completed: true } : w,
-    );
-    saveWorkouts(updated); // persist
-    setWorkouts(updated); // re-render now
-    setSelectedWorkout(null); // close the modal
+    updateWorkout(selectedWorkout._id, { completed: true })
+      .then((updatedWorkout) => {
+        setWorkouts((current) =>
+          current.map((w) =>
+            w._id === selectedWorkout._id ? updatedWorkout : w,
+          ),
+        );
+        setSelectedWorkout(null);
+      })
+      .catch(console.error);
   };
 
   return (
@@ -37,9 +47,9 @@ function Workouts() {
         </div>
       ) : (
         <ul className="workouts__list">
-          {workouts.map((workout, index) => (
+          {workouts.map((workout) => (
             <WorkoutCard
-              key={workout.id}
+              key={workout._id}
               workout={workout}
               onCardClick={handleCardClick}
             />

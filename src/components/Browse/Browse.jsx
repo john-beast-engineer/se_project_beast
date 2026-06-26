@@ -3,12 +3,7 @@ import ActivityCard from "../ActivityCard/ActivityCard";
 import ExerciseModal from "../ExerciseModal/ExerciseModal.jsx";
 import SetsRepsModal from "../SetsRepsModal/SetsRepsModal.jsx";
 import WorkoutNameModal from "../WorkoutNameModal/WorkoutNameModal.jsx";
-import {
-  getCompleted,
-  saveCompleted,
-  getWorkouts,
-  saveWorkouts,
-} from "../../utils/storage.js";
+import { createWorkout } from "../../utils/storage.js";
 import { getExercises } from "../../utils/wgerApi.js";
 import "./Browse.css";
 
@@ -33,19 +28,8 @@ function Browse() {
 
   const handleCloseModal = () => setSelectedExercise(null);
 
-  const handleComplete = () => {
-    const completed = getCompleted();
-    const alreadyDone = completed.some(
-      (item) => item.id === selectedExercise.id,
-    );
-    if (!alreadyDone) {
-      saveCompleted([...completed, selectedExercise]);
-    }
-    setSelectedExercise(null);
-  };
-
   const handleCreateWorkout = (name) => {
-    setDraftWorkout({ id: Date.now(), name, exercises: [] }); // NEW: id
+    setDraftWorkout({ name, exercises: [] });
     setIsNamingOpen(false);
   };
 
@@ -71,14 +55,14 @@ function Browse() {
   };
 
   const handleSaveWorkout = () => {
-    const workouts = getWorkouts();
-    saveWorkouts([...workouts, draftWorkout]);
-    setDraftWorkout(null);
+    createWorkout(draftWorkout)
+      .then(() => setDraftWorkout(null))
+      .catch(console.error);
   };
 
   const handleAddFromDetail = (exercise) => {
-    setSelectedExercise(null); // close the detail modal
-    setPendingExercise(exercise); // open SetsRepsModal — your existing add flow
+    setSelectedExercise(null);
+    setPendingExercise(exercise);
   };
 
   return (
@@ -125,8 +109,8 @@ function Browse() {
         <ExerciseModal
           exercise={selectedExercise}
           onClose={handleCloseModal}
-          onAddToWorkout={handleAddFromDetail} // NEW (replaces onComplete)
-          isBuildMode={draftWorkout !== null} // NEW
+          onAddToWorkout={handleAddFromDetail}
+          isBuildMode={draftWorkout !== null}
         />
       )}
 

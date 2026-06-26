@@ -1,8 +1,12 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import logo from "../../assets/logo.png";
 import "./Header.css";
 
-function Header() {
+function Header({ isLoggedIn, onLoginClick, onRegisterClick, onLogout }) {
+  const currentUser = useContext(CurrentUserContext);
+
   const getNavClass = ({ isActive }) =>
     `header__nav-item ${isActive ? "header__nav-item_active" : ""}`;
 
@@ -27,6 +31,37 @@ function Header() {
             Workouts
           </NavLink>
         </nav>
+        <div className="header__auth">
+          {isLoggedIn ? (
+            <>
+              <span className="header__username">{currentUser.name}</span>
+              <button
+                type="button"
+                className="header__auth-btn"
+                onClick={onLogout}
+              >
+                Log Out
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                type="button"
+                className="header__auth-btn"
+                onClick={onLoginClick}
+              >
+                Log In
+              </button>
+              <button
+                type="button"
+                className="header__auth-btn"
+                onClick={onRegisterClick}
+              >
+                Sign Up
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );

@@ -1,21 +1,96 @@
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "../Header/Header.jsx";
 import Browse from "../Browse/Browse.jsx";
 import Workouts from "../Workouts/Workouts.jsx";
 import Completed from "../Completed/Completed.jsx";
+import RegisterModal from "../RegisterModal/RegisterModal.jsx";
+import LoginModal from "../LoginModal/LoginModal.jsx";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
+import { register, login, checkToken } from "../../utils/auth.js";
+import { setToken, getToken, removeToken } from "../../utils/token.js";
 import "./App.css";
 
 function App() {
+  const [currentUser, setCurrentUser] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [activeModal, setActiveModal] = useState("");
+
+  useEffect(() => {
+    const token = getToken();
+    if (!token) return;
+
+    checkToken(token)
+      .then((user) => {
+        setCurrentUser(user);
+        setIsLoggedIn(true);
+      })
+      .catch((err) => {
+        console.error(err);
+        removeToken();
+      });
+  }, []);
+
+  const handleOpenRegister = () => setActiveModal("register");
+  const handleOpenLogin = () => setActiveModal("login");
+  const handleCloseModal = () => setActiveModal("");
+
+  const handleRegister = ({ name, email, password }) => {
+    register({ name, email, password })
+      .then(() => handleLogin({ email, password }))
+      .catch((err) => console.error(err));
+  };
+
+  const handleLogin = ({ email, password }) => {
+    login({ email, password })
+      .then((res) => {
+        setToken(res.token);
+        return checkToken(res.token);
+      })
+      .then((user) => {
+        setCurrentUser(user);
+        setIsLoggedIn(true);
+        handleCloseModal();
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const handleLogout = () => {
+    removeToken();
+    setIsLoggedIn(false);
+    setCurrentUser({});
+  };
+
   return (
-    <div className="page">
-      {/* Header, Main, Footer / routes land here */}
-      <Header />
-      <Routes>
-        <Route path="/" element={<Completed />} />
-        <Route path="/browse" element={<Browse />} />
-        <Route path="/workouts" element={<Workouts />} />
-      </Routes>
-    </div>
+    <CurrentUserContext.Provider value={currentUser}>
+      {" "}
+      <div className="page">
+        <Header
+          isLoggedIn={isLoggedIn}
+          onLoginClick={handleOpenLogin}
+          onRegisterClick={handleOpenRegister}
+          onLogout={handleLogout}
+        />
+        <Routes>
+          <Route path="/" element={<Completed />} />
+          <Route path="/browse" element={<Browse />} />
+          <Route path="/workouts" element={<Workouts />} />
+        </Routes>
+
+        <RegisterModal
+          isOpen={activeModal === "register"}
+          onClose={handleCloseModal}
+          onRegister={handleRegister}
+          onSwitchToLogin={handleOpenLogin}
+        />
+        <LoginModal
+          isOpen={activeModal === "login"}
+          onClose={handleCloseModal}
+          onLogin={handleLogin}
+          onSwitchToRegister={handleOpenRegister}
+        />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

@@ -10,6 +10,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .header__logo {
@@ -60,4 +62,27 @@
 .header__nav-item_active {
   color: var(--color-white);
   border-bottom: 2px solid var(--color-red);
+}
+
+.header__auth {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.header__username {
+  color: #fff;
+  font-size: 14px;
+}
+
+.header__auth-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #b34a3f;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
 }
