@@ -8,7 +8,8 @@ function SetsRepsModal({ exercise, onConfirm, onClose }) {
 
   const name = getEnglishName(exercise);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (sets && reps) {
       onConfirm(Number(sets), Number(reps));
     }
@@ -26,33 +27,31 @@ function SetsRepsModal({ exercise, onConfirm, onClose }) {
         </button>
         <h2 className="sets-reps-modal__title">{name}</h2>
 
-        <label className="sets-reps-modal__label">
-          Sets
-          <input
-            className="sets-reps-modal__input"
-            type="number"
-            value={sets}
-            onChange={(e) => setSets(e.target.value)}
-          />
-        </label>
+        <form className="sets-reps-modal__form" onSubmit={handleSubmit}>
+          <label className="sets-reps-modal__label">
+            Sets
+            <input
+              className="sets-reps-modal__input"
+              type="number"
+              value={sets}
+              onChange={(e) => setSets(e.target.value)}
+            />
+          </label>
 
-        <label className="sets-reps-modal__label">
-          Reps
-          <input
-            className="sets-reps-modal__input"
-            type="number"
-            value={reps}
-            onChange={(e) => setReps(e.target.value)}
-          />
-        </label>
+          <label className="sets-reps-modal__label">
+            Reps
+            <input
+              className="sets-reps-modal__input"
+              type="number"
+              value={reps}
+              onChange={(e) => setReps(e.target.value)}
+            />
+          </label>
 
-        <button
-          className="sets-reps-modal__confirm"
-          type="button"
-          onClick={handleSubmit}
-        >
-          Add to Workout
-        </button>
+          <button className="sets-reps-modal__confirm" type="submit">
+            Add to Workout
+          </button>
+        </form>
       </div>
     </div>
   );

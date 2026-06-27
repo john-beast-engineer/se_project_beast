@@ -7,6 +7,7 @@ import Completed from "../Completed/Completed.jsx";
 import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import LoginModal from "../LoginModal/LoginModal.jsx";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 import { register, login, checkToken } from "../../utils/auth.js";
 import { setToken, getToken, removeToken } from "../../utils/token.js";
 import "./App.css";
@@ -15,20 +16,21 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeModal, setActiveModal] = useState("");
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
 
   useEffect(() => {
     const token = getToken();
-    if (!token) return;
-
+    if (!token) {
+      setIsAuthChecking(false);
+      return;
+    }
     checkToken(token)
       .then((user) => {
         setCurrentUser(user);
         setIsLoggedIn(true);
       })
-      .catch((err) => {
-        console.error(err);
-        removeToken();
-      });
+      .catch(console.error)
+      .finally(() => setIsAuthChecking(false));
   }, []);
 
   const handleOpenRegister = () => setActiveModal("register");
@@ -73,8 +75,18 @@ function App() {
         />
         <Routes>
           <Route path="/" element={<Completed />} />
-          <Route path="/browse" element={<Browse />} />
-          <Route path="/workouts" element={<Workouts />} />
+          <Route path="/browse" element={<Browse isLoggedIn={isLoggedIn} />} />
+          <Route
+            path="/workouts"
+            element={
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                isAuthChecking={isAuthChecking}
+              >
+                <Workouts />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
 
         <RegisterModal

@@ -7,7 +7,7 @@ import { createWorkout } from "../../utils/storage.js";
 import { getExercises } from "../../utils/wgerApi.js";
 import "./Browse.css";
 
-function Browse() {
+function Browse({ isLoggedIn }) {
   const [exercises, setExercises] = useState([]);
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [draftWorkout, setDraftWorkout] = useState(null);
@@ -69,14 +69,15 @@ function Browse() {
     <main className="browse">
       <h2>Browse workouts</h2>
 
-      <button
-        className="browse__create-btn"
-        type="button"
-        onClick={() => setIsNamingOpen(true)}
-      >
-        + Create Workout
-      </button>
-
+      {isLoggedIn && (
+        <button
+          className="browse__create-btn"
+          type="button"
+          onClick={() => setIsNamingOpen(true)}
+        >
+          + Create Workout
+        </button>
+      )}
       {draftWorkout && (
         <p className="browse__building">
           Building: {draftWorkout.name} ({draftWorkout.exercises.length})
