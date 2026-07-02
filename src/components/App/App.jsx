@@ -3,7 +3,10 @@ import { Routes, Route } from "react-router-dom";
 import Header from "../Header/Header.jsx";
 import Browse from "../Browse/Browse.jsx";
 import Workouts from "../Workouts/Workouts.jsx";
-import Completed from "../Completed/Completed.jsx";
+import Dashboard from "../Dashboard/Dashboard.jsx";
+import WorkoutSection from "../WorkoutSection/WorkoutSection.jsx";
+import WellnessSection from "../WellnessSection/WellnessSection.jsx";
+import WellnessBrowse from "../WellnessBrowse/WellnessBrowse.jsx";
 import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import LoginModal from "../LoginModal/LoginModal.jsx";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
@@ -65,7 +68,6 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      {" "}
       <div className="page">
         <Header
           isLoggedIn={isLoggedIn}
@@ -74,19 +76,27 @@ function App() {
           onLogout={handleLogout}
         />
         <Routes>
-          <Route path="/" element={<Completed />} />
-          <Route path="/browse" element={<Browse isLoggedIn={isLoggedIn} />} />
-          <Route
-            path="/workouts"
-            element={
-              <ProtectedRoute
-                isLoggedIn={isLoggedIn}
-                isAuthChecking={isAuthChecking}
-              >
-                <Workouts />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/" element={<Dashboard isLoggedIn={isLoggedIn} />} />
+
+          <Route path="/workout" element={<WorkoutSection />}>
+            <Route index element={<Browse isLoggedIn={isLoggedIn} />} />
+            <Route path="browse" element={<Browse isLoggedIn={isLoggedIn} />} />
+            <Route
+              path="saved"
+              element={
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                  isAuthChecking={isAuthChecking}
+                >
+                  <Workouts />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+
+          <Route path="/wellness" element={<WellnessSection />}>
+            <Route index element={<WellnessBrowse />} />
+          </Route>
         </Routes>
 
         <RegisterModal

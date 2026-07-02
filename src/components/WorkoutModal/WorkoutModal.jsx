@@ -1,7 +1,7 @@
 import { getEnglishName } from "../../utils/wgerApi.js";
 import "./WorkoutModal.css";
 
-function WorkoutModal({ workout, onClose, onComplete }) {
+function WorkoutModal({ workout, onClose, onComplete, onDelete }) {
   return (
     <div className="workout-modal">
       <div className="workout-modal__container">
@@ -22,6 +22,7 @@ function WorkoutModal({ workout, onClose, onComplete }) {
             </li>
           ))}
         </ul>
+
         {workout.completed ? (
           <p className="workout-modal__done">✓ Completed</p>
         ) : (
@@ -33,6 +34,14 @@ function WorkoutModal({ workout, onClose, onComplete }) {
             Mark Complete
           </button>
         )}
+
+        <button
+          className="workout-modal__delete"
+          type="button"
+          onClick={onDelete}
+        >
+          Delete Workout
+        </button>
       </div>
     </div>
   );

@@ -1,0 +1,23 @@
+.workout-section__nav {
+  display: flex;
+  gap: 24px;
+  padding: 16px 24px;
+  border-bottom: 1px solid #333;
+}
+
+.workout-section__tab {
+  text-decoration: none;
+  color: #aaa;
+  font-weight: 600;
+  padding-bottom: 4px;
+  transition: color var(--transition-fast);
+}
+
+.workout-section__tab:hover {
+  color: #fff;
+}
+
+.workout-section__tab_active {
+  color: #fff;
+  border-bottom: 2px solid #b34a3f;
+}

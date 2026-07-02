@@ -43,3 +43,17 @@ export function deleteWorkout(id) {
     headers: authHeaders(),
   }).then(checkResponse);
 }
+
+export function completeWellnessActivity(activityId) {
+  return fetch(`${BASE_URL}/wellness-completions`, {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify({ activityId }),
+  }).then(checkResponse);
+}
+
+export function getWellnessCompletions() {
+  return fetch(`${BASE_URL}/wellness-completions`, {
+    headers: authHeaders(),
+  }).then(checkResponse);
+}

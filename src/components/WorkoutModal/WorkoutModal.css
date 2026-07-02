@@ -52,3 +52,22 @@
 .workout-modal__item:last-child {
   border-bottom: none;
 }
+
+.workout-modal__delete {
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #b34a3f;
+  border-radius: 6px;
+  background: transparent;
+  color: #b34a3f;
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.workout-modal__delete:hover {
+  background: #b34a3f;
+  color: #fff;
+}

@@ -1,0 +1,13 @@
+.wellness-browse {
+  padding: 24px;
+  padding-bottom: 40px;
+}
+
+.wellness-browse__list {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}

@@ -1,16 +1,19 @@
-.workout-card {
-  cursor: pointer;
+.workout-card__header {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between title and X */
 }
 
-.workout-card:hover {
-  transform: translateY(-4px);
-}
-
-.workout-modal__complete {
-  padding: 12px;
+.workout-card__delete {
+  background: none;
   border: none;
-  border-radius: 8px;
-  background: #dc143c;
-  color: #fff;
+  color: #777;
+  font-size: 20px;
+  line-height: 1;
   cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.workout-card__delete:hover {
+  color: #b34a3f;
 }

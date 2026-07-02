@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import WorkoutCard from "../WorkoutCard/WorkoutCard.jsx";
 import WorkoutModal from "../WorkoutModal/WorkoutModal.jsx";
 import { Link } from "react-router-dom";
-import { getWorkouts, updateWorkout } from "../../utils/storage.js";
+import {
+  getWorkouts,
+  updateWorkout,
+  deleteWorkout,
+} from "../../utils/storage.js";
 import "./Workouts.css";
 
 function Workouts() {
@@ -34,6 +38,16 @@ function Workouts() {
       .catch(console.error);
   };
 
+  const handleDeleteWorkout = (id) => {
+    if (!window.confirm("Delete this workout? This can't be undone.")) return;
+
+    deleteWorkout(id)
+      .then(() => {
+        setWorkouts((current) => current.filter((w) => w._id !== id));
+      })
+      .catch(console.error);
+  };
+
   return (
     <main className="workouts">
       <h2>Your Workouts</h2>
@@ -41,7 +55,7 @@ function Workouts() {
       {workouts.length === 0 ? (
         <div className="workouts__empty">
           <p>You have not selected any workouts yet.</p>
-          <Link to="/browse" className="workouts__empty-link">
+          <Link to="/workout/browse" className="workouts__empty-link">
             Build your first →
           </Link>
         </div>
@@ -52,6 +66,7 @@ function Workouts() {
               key={workout._id}
               workout={workout}
               onCardClick={handleCardClick}
+              onDelete={handleDeleteWorkout}
             />
           ))}
         </ul>
