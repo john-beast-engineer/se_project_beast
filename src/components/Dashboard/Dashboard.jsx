@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import XpBar from "../XpBar/XpBar.jsx";
 import WorkoutCard from "../WorkoutCard/WorkoutCard.jsx";
 import {
   getWorkouts,
@@ -34,6 +35,8 @@ function Dashboard({ isLoggedIn }) {
 
   return (
     <main className="dashboard">
+      <XpBar current={340} max={500} />
+
       <nav className="dashboard__tiles">
         <NavLink
           to="/workout"

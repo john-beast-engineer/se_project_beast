@@ -85,3 +85,8 @@
   color: #888;
   font-size: 13px;
 }
+
+.dashboard .xp-bar {
+  margin: 16px 24px;
+  width: auto;
+}
