@@ -92,3 +92,10 @@
 .form-modal__switch:hover {
   color: #d96a5e;
 }
+
+.form-modal__error {
+  color: #ff6b6b;
+  font-size: 13px;
+  margin: 4px 0 0;
+  text-align: center;
+}

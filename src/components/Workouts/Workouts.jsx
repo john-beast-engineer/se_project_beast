@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import WorkoutCard from "../WorkoutCard/WorkoutCard.jsx";
 import WorkoutModal from "../WorkoutModal/WorkoutModal.jsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   getWorkouts,
   updateWorkout,
@@ -9,7 +9,8 @@ import {
 } from "../../utils/storage.js";
 import "./Workouts.css";
 
-function Workouts() {
+function Workouts({ setWorkoutBeingEdited }) {
+  const navigate = useNavigate();
   const [workouts, setWorkouts] = useState([]);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
 
@@ -33,9 +34,15 @@ function Workouts() {
             w._id === selectedWorkout._id ? updatedWorkout : w,
           ),
         );
-        setSelectedWorkout(null);
+        setSelectedWorkout(updatedWorkout);
       })
       .catch(console.error);
+  };
+
+  const handleEditWorkout = () => {
+    setWorkoutBeingEdited(selectedWorkout);
+    setSelectedWorkout(null);
+    navigate("/workout/browse");
   };
 
   const handleDeleteWorkout = (id) => {
@@ -44,6 +51,23 @@ function Workouts() {
     deleteWorkout(id)
       .then(() => {
         setWorkouts((current) => current.filter((w) => w._id !== id));
+      })
+      .catch(console.error);
+  };
+
+  const handleRemoveExercise = (exerciseId) => {
+    const updateExercises = selectedWorkout.exercises.filter(
+      (ex) => ex.id !== exerciseId,
+    );
+
+    updateWorkout(selectedWorkout._id, { exercises: updateExercises })
+      .then((updatedWorkout) => {
+        setWorkouts((current) =>
+          current.map((w) =>
+            w._id === updatedWorkout._id ? updatedWorkout : w,
+          ),
+        );
+        setSelectedWorkout(updatedWorkout);
       })
       .catch(console.error);
   };
@@ -76,6 +100,8 @@ function Workouts() {
           workout={selectedWorkout}
           onClose={handleCloseModal}
           onComplete={handleCompleteWorkout}
+          onRemoveExercise={handleRemoveExercise}
+          onAddExercise={handleEditWorkout}
         />
       )}
     </main>

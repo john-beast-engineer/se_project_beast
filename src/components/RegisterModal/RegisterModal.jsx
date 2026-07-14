@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 
-function RegisterModal({ isOpen, onClose, onRegister, onSwitchToLogin }) {
+function RegisterModal({
+  isOpen,
+  onClose,
+  onRegister,
+  onSwitchToLogin,
+  registerError,
+}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -70,6 +76,7 @@ function RegisterModal({ isOpen, onClose, onRegister, onSwitchToLogin }) {
           onChange={(e) => setPassword(e.target.value)}
         />
       </label>
+      {registerError && <p className="form-modal__error">{registerError}</p>}
     </ModalWithForm>
   );
 }

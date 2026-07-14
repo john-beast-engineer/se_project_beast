@@ -20,6 +20,9 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeModal, setActiveModal] = useState("");
   const [isAuthChecking, setIsAuthChecking] = useState(true);
+  const [authError, setAuthError] = useState("");
+  const [registerError, setRegisterError] = useState("");
+  const [workoutBeingEdited, setWorkoutBeingEdited] = useState(null);
 
   useEffect(() => {
     const token = getToken();
@@ -36,17 +39,33 @@ function App() {
       .finally(() => setIsAuthChecking(false));
   }, []);
 
-  const handleOpenRegister = () => setActiveModal("register");
-  const handleOpenLogin = () => setActiveModal("login");
+  const handleOpenRegister = () => {
+    setActiveModal("register");
+    setAuthError("");
+    setRegisterError("");
+  };
+  const handleOpenLogin = () => {
+    setActiveModal("login");
+    setAuthError("");
+    setRegisterError("");
+  };
   const handleCloseModal = () => setActiveModal("");
 
   const handleRegister = ({ name, email, password }) => {
+    setRegisterError("");
     register({ name, email, password })
       .then(() => handleLogin({ email, password }))
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        if (String(err).includes("409")) {
+          setRegisterError("That email is already registered.");
+        } else {
+          setRegisterError("Something went wrong. Please try again.");
+        }
+      });
   };
 
   const handleLogin = ({ email, password }) => {
+    setAuthError("");
     login({ email, password })
       .then((res) => {
         setToken(res.token);
@@ -57,7 +76,9 @@ function App() {
         setIsLoggedIn(true);
         handleCloseModal();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setAuthError("Incorrect email or password.");
+      });
   };
 
   const handleLogout = () => {
@@ -79,16 +100,13 @@ function App() {
           <Route path="/" element={<Dashboard isLoggedIn={isLoggedIn} />} />
 
           <Route path="/workout" element={<WorkoutSection />}>
-            <Route index element={<Browse isLoggedIn={isLoggedIn} />} />
-            <Route path="browse" element={<Browse isLoggedIn={isLoggedIn} />} />
+            <Route index element={<Browse isLoggedIn={isLoggedIn} workoutBeingEdited={workoutBeingEdited} setWorkoutBeingEdited={setWorkoutBeingEdited} />} />
+            <Route path="browse" element={<Browse isLoggedIn={isLoggedIn} workoutBeingEdited={workoutBeingEdited} setWorkoutBeingEdited={setWorkoutBeingEdited} />} />
             <Route
               path="saved"
               element={
-                <ProtectedRoute
-                  isLoggedIn={isLoggedIn}
-                  isAuthChecking={isAuthChecking}
-                >
-                  <Workouts />
+                <ProtectedRoute isLoggedIn={isLoggedIn} isAuthChecking={isAuthChecking}>
+                  <Workouts setWorkoutBeingEdited={setWorkoutBeingEdited} />
                 </ProtectedRoute>
               }
             />
@@ -101,15 +119,23 @@ function App() {
 
         <RegisterModal
           isOpen={activeModal === "register"}
-          onClose={handleCloseModal}
+          onClose={() => {
+            handleCloseModal();
+            setRegisterError("");
+          }}
           onRegister={handleRegister}
           onSwitchToLogin={handleOpenLogin}
+          registerError={registerError}
         />
         <LoginModal
           isOpen={activeModal === "login"}
-          onClose={handleCloseModal}
+          onClose={() => {
+            handleCloseModal();
+            setAuthError("");
+          }}
           onLogin={handleLogin}
           onSwitchToRegister={handleOpenRegister}
+          authError={authError}
         />
       </div>
     </CurrentUserContext.Provider>

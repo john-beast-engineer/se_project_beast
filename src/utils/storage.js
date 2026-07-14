@@ -57,3 +57,30 @@ export function getWellnessCompletions() {
     headers: authHeaders(),
   }).then(checkResponse);
 }
+
+export function getCustomExercises() {
+  return fetch(`${BASE_URL}/custom-exercises`, {
+    headers: authHeaders(),
+  }).then(checkResponse);
+}
+
+export function deleteCustomExercise(id) {
+  return fetch(`${BASE_URL}/custom-exercises/${id}`, {
+    method: "DELETE",
+    headers: authHeaders(),
+  }).then(checkResponse);
+}
+
+export function createCustomExercise({
+  name,
+  category,
+  description,
+  imageUrl,
+  videoUrl,
+}) {
+  return fetch(`${BASE_URL}/custom-exercises`, {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify({ name, category, description, imageUrl, videoUrl }),
+  }).then(checkResponse);
+}

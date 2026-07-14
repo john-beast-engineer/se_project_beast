@@ -39,8 +39,9 @@
 
 .modal__image {
   width: 100%;
-  margin-bottom: 16px;
-  border-radius: var(--radius, 8px);
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
 .modal__caption {
@@ -76,4 +77,19 @@
 
 .modal__complete-btn:hover {
   opacity: 0.9;
+}
+
+.modal__video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: 8px;
+}
+
+.modal__video-link {
+  display: inline-block;
+  padding: 12px;
+  color: #b34a3f;
+  text-decoration: none;
+  font-weight: 600;
 }

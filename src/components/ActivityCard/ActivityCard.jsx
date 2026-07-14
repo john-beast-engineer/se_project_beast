@@ -1,16 +1,12 @@
-import { getEnglishName } from "../../utils/wgerApi.js";
 import "./ActivityCard.css";
 import logo from "../../assets/logo1.png";
 
 function ActivityCard({ exercise, onCardClick, onCardAdd, isBuildMode }) {
-  const name = getEnglishName(exercise);
-  const category = exercise.category?.name;
-  const imageUrl = exercise.images[0]?.image || logo;
+  const name = exercise.name;
+  const category = exercise.category;
+  const imageUrl = exercise.imageUrl;
 
-  const handleClick = () => {
-    onCardClick?.(exercise);
-  };
-
+  const handleClick = () => onCardClick?.(exercise);
   const handleAdd = (e) => {
     e.stopPropagation();
     onCardAdd(exercise);
@@ -18,7 +14,11 @@ function ActivityCard({ exercise, onCardClick, onCardAdd, isBuildMode }) {
 
   return (
     <li className="card" onClick={handleClick}>
-      {imageUrl && <img className="card__image" src={imageUrl} alt={name} />}
+      <img
+        className={imageUrl ? "card__image" : "card__image card__image--logo"}
+        src={imageUrl || logo}
+        alt={name}
+      />
 
       <div className="card__info">
         <h2 className="card__name">{name}</h2>
