@@ -9,9 +9,9 @@ function checkResponse(res) {
 }
 
 function getExercises() {
-  return fetch(`${baseUrl}/exerciseinfo/?language=2&limit=20&format=json`).then(
-    checkResponse,
-  );
+  return fetch(
+    `${baseUrl}/exerciseinfo/?language=2&limit=100&format=json`,
+  ).then(checkResponse);
 }
 
 export function getEnglishName(exercise) {
