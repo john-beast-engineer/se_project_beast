@@ -8,6 +8,7 @@ import {
   getWellnessCompletions,
 } from "../../utils/storage.js";
 import { wellnessActivities } from "../../utils/wellnessActivities.js";
+import { calculateXp, getProgress } from "../../utils/xp.js"; // NEW
 import "./Dashboard.css";
 
 function Dashboard({ isLoggedIn }) {
@@ -24,6 +25,9 @@ function Dashboard({ isLoggedIn }) {
 
   const completedWorkouts = workouts.filter((w) => w.completed);
 
+  const xp = calculateXp(completedWorkouts.length, wellnessCompletions.length); // NEW
+  const progress = getProgress(xp); // NEW
+
   const handleDeleteWorkout = (id) => {
     if (!window.confirm("Delete this workout? This can't be undone.")) return;
     deleteWorkout(id)
@@ -35,7 +39,7 @@ function Dashboard({ isLoggedIn }) {
 
   return (
     <main className="dashboard">
-      <XpBar current={340} max={500} />
+      <XpBar current={progress.current} max={progress.max} />
 
       <nav className="dashboard__tiles">
         <NavLink
