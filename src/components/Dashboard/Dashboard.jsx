@@ -39,6 +39,19 @@ function Dashboard({ isLoggedIn }) {
 
   return (
     <main className="dashboard">
+      <section className="dashboard__beast">
+        <img
+          src={progress.level.image}
+          alt={progress.level.name}
+          className="dashboard__beast-art"
+        />
+        <h2 className="dashboard__beast-name">{progress.level.name}</h2>
+        {progress.next && (
+          <p className="dashboard__beast-next">
+            {progress.max - progress.current} XP to {progress.next.name}
+          </p>
+        )}
+      </section>
       <XpBar current={progress.current} max={progress.max} />
 
       <nav className="dashboard__tiles">

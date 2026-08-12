@@ -7,9 +7,6 @@ import "./Header.css";
 function Header({ isLoggedIn, onLoginClick, onRegisterClick, onLogout }) {
   const currentUser = useContext(CurrentUserContext);
 
-  const getNavClass = ({ isActive }) =>
-    `header__nav-item ${isActive ? "header__nav-item_active" : ""}`;
-
   return (
     <header className="header">
       <div className="header__container">
@@ -20,18 +17,6 @@ function Header({ isLoggedIn, onLoginClick, onRegisterClick, onLogout }) {
             alt="BeTheBeast Logo"
           />
         </NavLink>
-
-        <nav className="header__nav">
-          <NavLink to="/" end className={getNavClass}>
-            Dashboard
-          </NavLink>
-          <NavLink to="/workout" className={getNavClass}>
-            Workout
-          </NavLink>
-          <NavLink to="/wellness" className={getNavClass}>
-            Wellness
-          </NavLink>
-        </nav>
 
         <div className="header__auth">
           {isLoggedIn ? (

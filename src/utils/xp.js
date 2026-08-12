@@ -1,11 +1,21 @@
+import wolverine from "../assets/wolverine.png"; // NEW
+import wolf from "../assets/wolf.png"; // NEW
+import rhino from "../assets/rhino.png"; // NEW
+import elephant from "../assets/elephant.png"; // NEW
+
 export const XP_PER_WORKOUT = 50;
 export const XP_PER_WELLNESS = 20;
 
 export const LEVELS = [
-  { id: "wolverine", name: "Persistent Wolverine", threshold: 0 },
-  { id: "wolf", name: "Resilient Wolf", threshold: 560 },
-  { id: "rhino", name: "Relentless Rhino", threshold: 1320 },
-  { id: "elephant", name: "Apex Elephant", threshold: 2360 },
+  {
+    id: "wolverine",
+    name: "Persistent Wolverine",
+    threshold: 0,
+    image: wolverine,
+  }, // NEW
+  { id: "wolf", name: "Resilient Wolf", threshold: 560, image: wolf }, // NEW
+  { id: "rhino", name: "Relentless Rhino", threshold: 1320, image: rhino }, // NEW
+  { id: "elephant", name: "Apex Elephant", threshold: 2360, image: elephant }, // NEW
 ];
 
 export function calculateXp(completedWorkoutCount, wellnessCompletionCount) {
