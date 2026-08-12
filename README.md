@@ -1,16 +1,33 @@
-# React + Vite
+# BeTheBeast — Stage 1
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A gamified fitness app for building and tracking your own workouts. Browse a live exercise library, assemble custom workouts with sets and reps, save them, and check them off as you train.
 
-Currently, two official plugins are available:
+Stage 1 is a frontend-only React build — the foundation for the full BeTheBeast platform.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live Demo
 
-## React Compiler
+https://john-beast-engineer.github.io/se_project_beast/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Project Pitch Video
 
-## Expanding the ESLint configuration
+[Watch the pitch »]https://www.loom.com/share/87fbc59adf0f4601927c4863bf16edb5
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features
+
+- Browse exercises pulled live from the wger API
+- Build a custom workout: name it, add exercises, set sets and reps
+- Save workouts to localStorage so they persist across reloads
+- Open any saved workout in a detail modal
+- Mark a workout complete and find it in your Completed list
+
+## Tech Stack
+
+- React 18 + Vite
+- React Router (HashRouter)
+- wger REST API for exercise data
+- localStorage for persistence
+- BEM-structured, responsive CSS
+
+## Run Locally
+
+Run `npm install`, then `npm run dev`, and open the local URL Vite prints.

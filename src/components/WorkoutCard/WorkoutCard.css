@@ -1,0 +1,19 @@
+.workout-card__header {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between title and X */
+}
+
+.workout-card__delete {
+  background: none;
+  border: none;
+  color: #777;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.workout-card__delete:hover {
+  color: #b34a3f;
+}

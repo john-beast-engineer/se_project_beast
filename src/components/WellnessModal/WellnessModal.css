@@ -1,0 +1,77 @@
+.wellness-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+}
+
+.wellness-modal__container {
+  position: relative;
+  background: #1c1c1c;
+  color: #fff;
+  width: 90%;
+  max-width: 440px;
+  padding: 32px;
+  border-radius: 12px;
+  box-sizing: border-box;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.wellness-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.wellness-modal__title {
+  margin: 0 0 12px;
+  font-size: 24px;
+}
+
+.wellness-modal__use-when {
+  margin: 0 0 24px;
+  padding: 10px 14px;
+  background: rgba(179, 74, 63, 0.15);
+  border-left: 3px solid #b34a3f;
+  border-radius: 4px;
+  color: #e0b3ad;
+  font-size: 14px;
+}
+
+.wellness-modal__steps {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wellness-modal__step {
+  line-height: 1.5;
+}
+
+.wellness-modal__complete {
+  margin-top: 24px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background: #b34a3f;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.wellness-modal__complete:hover {
+  background: #9e3f35;
+}

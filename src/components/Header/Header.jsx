@@ -1,29 +1,54 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import logo from "../../assets/logo.png";
 import "./Header.css";
 
-function Header() {
-  const getNavClass = ({ isActive }) =>
-    `header__nav-item ${isActive ? "header__nav-item_active" : ""}`;
+function Header({ isLoggedIn, onLoginClick, onRegisterClick, onLogout }) {
+  const currentUser = useContext(CurrentUserContext);
 
   return (
     <header className="header">
       <div className="header__container">
-        <Link to="/" className="header__logo">
+        <NavLink to="/" className="header__logo">
           <img
             className="header__logo-image"
             src={logo}
             alt="BeTheBeast Logo"
           />
-        </Link>
-        <nav className="header__nav">
-          <NavLink to="/" end className={getNavClass}>
-            Completed
-          </NavLink>
-          <NavLink to="/browse" className={getNavClass}>
-            Browse
-          </NavLink>
-        </nav>
+        </NavLink>
+
+        <div className="header__auth">
+          {isLoggedIn ? (
+            <>
+              <span className="header__username">{currentUser.name}</span>
+              <button
+                type="button"
+                className="header__auth-btn"
+                onClick={onLogout}
+              >
+                Log Out
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                type="button"
+                className="header__auth-btn"
+                onClick={onLoginClick}
+              >
+                Log In
+              </button>
+              <button
+                type="button"
+                className="header__auth-btn"
+                onClick={onRegisterClick}
+              >
+                Sign Up
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );
