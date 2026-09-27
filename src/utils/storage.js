@@ -44,11 +44,11 @@ export function deleteWorkout(id) {
   }).then(checkResponse);
 }
 
-export function completeWellnessActivity(activityId) {
+export function completeWellnessActivity(activityId, durationSeconds) {
   return fetch(`${BASE_URL}/wellness-completions`, {
     method: "POST",
     headers: authHeaders(),
-    body: JSON.stringify({ activityId }),
+    body: JSON.stringify({ activityId, durationSeconds }),
   }).then(checkResponse);
 }
 

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./WorkoutModal.css";
 import logo from "../../assets/logo1.png";
+import { formatDuration } from "../../utils/xp.js";
+import Timer from "../Timer/Timer.jsx";
 
 function getYouTubeEmbed(url) {
   if (!url) return null;
@@ -19,6 +21,7 @@ function WorkoutModal({
 }) {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [seconds, setSeconds] = useState(0);
 
   const handleToggle = (index) => {
     setExpandedIndex((current) => (current === index ? null : index));
@@ -132,15 +135,26 @@ function WorkoutModal({
         )}
 
         {workout.completed ? (
-          <p className="workout-modal__done">✓ Completed</p>
+          <>
+            <p className="workout-modal__done">✓ Completed</p>
+            {workout.durationSeconds != null && (
+              <p className="workout-modal__duration">
+                Last time: {formatDuration(workout.durationSeconds)}
+              </p>
+            )}
+          </>
         ) : (
-          <button
-            className="workout-modal__complete"
-            type="button"
-            onClick={onComplete}
-          >
-            Mark Complete
-          </button>
+          <>
+            <Timer seconds={seconds} setSeconds={setSeconds} />
+
+            <button
+              className="workout-modal__complete"
+              type="button"
+              onClick={() => onComplete(seconds)}
+            >
+              Mark Complete
+            </button>
+          </>
         )}
       </div>
     </div>

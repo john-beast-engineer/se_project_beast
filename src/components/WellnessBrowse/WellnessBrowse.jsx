@@ -14,8 +14,8 @@ function WellnessBrowse() {
 
   const handleCloseModal = () => setSelectedActivity(null);
 
-  const handleComplete = () => {
-    completeWellnessActivity(selectedActivity.id)
+  const handleComplete = (durationSeconds) => {
+    completeWellnessActivity(selectedActivity.id, durationSeconds)
       .then(() => {
         setSelectedActivity(null);
       })

@@ -1,6 +1,10 @@
+import { useState } from "react";
+import Timer from "../Timer/Timer.jsx";
 import "./WellnessModal.css";
 
 function WellnessModal({ activity, onClose, onComplete }) {
+  const [seconds, setSeconds] = useState(0);
+
   return (
     <div className="wellness-modal" onClick={onClose}>
       <div
@@ -27,10 +31,12 @@ function WellnessModal({ activity, onClose, onComplete }) {
           ))}
         </ol>
 
+        <Timer seconds={seconds} setSeconds={setSeconds} />
+
         <button
           className="wellness-modal__complete"
           type="button"
-          onClick={onComplete}
+          onClick={() => onComplete(seconds)}
         >
           Mark Complete
         </button>

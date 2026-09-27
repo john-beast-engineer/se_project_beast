@@ -44,3 +44,10 @@ export function getProgress(xp) {
   const max = next.threshold - level.threshold;
   return { level, next, current, max, percent: (current / max) * 100 };
 }
+
+export function formatDuration(totalSeconds) {
+  if (totalSeconds == null) return "—";
+  const m = Math.floor(totalSeconds / 60);
+  const s = totalSeconds % 60;
+  return `${m}:${String(s).padStart(2, "0")}`;
+}

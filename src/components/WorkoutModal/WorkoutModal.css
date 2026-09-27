@@ -146,3 +146,8 @@
   background: #b34a3f;
   color: #fff;
 }
+
+.workout-modal__duration {
+  opacity: 0.7;
+  font-size: 14px;
+}

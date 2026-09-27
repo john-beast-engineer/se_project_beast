@@ -26,8 +26,8 @@ function Workouts({ setWorkoutBeingEdited }) {
 
   const handleCloseModal = () => setSelectedWorkout(null);
 
-  const handleCompleteWorkout = () => {
-    updateWorkout(selectedWorkout._id, { completed: true })
+  const handleCompleteWorkout = (durationSeconds) => {
+    updateWorkout(selectedWorkout._id, { completed: true, durationSeconds })
       .then((updatedWorkout) => {
         setWorkouts((current) =>
           current.map((w) =>
