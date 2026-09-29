@@ -1,7 +1,7 @@
 .workout-modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: var(--color-overlay);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,8 +10,8 @@
 
 .workout-modal__container {
   position: relative;
-  background: #1a1a1a;
-  color: #fff;
+  background: var(--color-surface);
+  color: var(--color-text);
   width: 90%;
   max-width: 420px;
   max-height: 80vh;
@@ -26,7 +26,7 @@
   right: 16px;
   background: transparent;
   border: none;
-  color: #fff;
+  color: var(--color-text);
   font-size: 28px;
   line-height: 1;
   cursor: pointer;
@@ -34,7 +34,7 @@
 
 .workout-modal__title {
   margin: 0 0 20px;
-  color: #fff;
+  color: var(--color-text);
 }
 
 .workout-modal__list {
@@ -45,8 +45,8 @@
 
 .workout-modal__item {
   padding: 12px 0;
-  border-bottom: 1px solid #333;
-  color: #fff;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
 }
 
 .workout-modal__item:last-child {
@@ -59,14 +59,14 @@
   padding: 10px;
   border: none;
   border-radius: 6px;
-  background: #b34a3f;
-  color: #fff;
+  background: var(--color-accent-fill);
+  color: var(--color-text);
   cursor: pointer;
   transition: background var(--transition-fast);
 }
 
 .workout-modal__complete:hover {
-  background: #9e3f35;
+  background: var(--color-accent-fill-hover);
 }
 
 .workout-modal__row {
@@ -76,7 +76,7 @@
   align-items: center;
   background: none;
   border: none;
-  color: #fff;
+  color: var(--color-text);
   font-size: 16px;
   padding: 12px 0;
   cursor: pointer;
@@ -84,7 +84,7 @@
 }
 
 .workout-modal__chevron {
-  color: #b34a3f;
+  color: var(--color-accent);
   font-size: 12px;
 }
 
@@ -109,7 +109,7 @@
 .workout-modal__video-link {
   display: inline-block;
   padding: 10px;
-  color: #b34a3f;
+  color: var(--color-accent);
   font-weight: 600;
   text-decoration: none;
 }
@@ -123,9 +123,9 @@
 .workout-modal__edit,
 .workout-modal__add {
   background: none;
-  border: 1px solid #b34a3f;
+  border: 1px solid var(--color-accent);
   border-radius: 6px;
-  color: #b34a3f;
+  color: var(--color-accent);
   padding: 6px 14px;
   cursor: pointer;
   transition:
@@ -143,8 +143,8 @@
 
 .workout-modal__edit:hover,
 .workout-modal__add:hover {
-  background: #b34a3f;
-  color: #fff;
+  background: var(--color-accent-fill);
+  color: var(--color-text);
 }
 
 .workout-modal__duration {

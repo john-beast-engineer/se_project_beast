@@ -1,5 +1,5 @@
 .wellness-card {
-  background: #1c1c1c;
+  background: var(--color-surface);
   border-radius: 12px;
   padding: 24px;
   cursor: pointer;
@@ -9,19 +9,19 @@
 }
 
 .wellness-card:hover {
-  background: #262626;
+  background: var(--color-surface-raised);
   transform: translateY(-2px);
 }
 
 .wellness-card__name {
   margin: 0 0 8px;
-  color: #fff;
+  color: var(--color-text);
   font-size: 20px;
 }
 
 .wellness-card__category {
   margin: 0;
-  color: #b34a3f;
+  color: var(--color-accent);
   font-size: 13px;
   letter-spacing: 1px;
 }

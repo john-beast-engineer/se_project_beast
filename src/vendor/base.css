@@ -4,8 +4,8 @@
 
 .page {
   font-family: var(--font-primary);
-  background-color: var(--color-black);
-  color: var(--color-white);
+  background-color: var(--color-bg);
+  color: var(--color-text);
   margin: 0;
   padding: 0;
   min-height: 100vh;

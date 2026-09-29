@@ -7,7 +7,7 @@
 .workout-card__delete {
   background: none;
   border: none;
-  color: #777;
+  color: var(--color-text-dim);
   font-size: 20px;
   line-height: 1;
   cursor: pointer;
@@ -15,5 +15,5 @@
 }
 
 .workout-card__delete:hover {
-  color: #b34a3f;
+  color: var(--color-accent);
 }

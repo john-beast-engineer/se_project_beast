@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: var(--color-gray-dark, #1a1a1a);
-  border-radius: var(--radius, 8px);
+  background-color: var(--color-surface, var(--color-surface));
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: transform 0.15s ease;
 }
@@ -25,7 +25,7 @@
 .card__name {
   margin: 0 0 4px;
   font-size: 16px;
-  color: var(--color-white, #fff);
+  color: var(--color-text, var(--color-text));
 }
 
 .card__category {
@@ -33,5 +33,5 @@
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--color-red, #dc143c);
+  color: var(--color-accent, var(--color-accent));
 }

@@ -1,22 +1,10 @@
-import wolverine from "../assets/wolverine.png"; // NEW
-import wolf from "../assets/wolf.png"; // NEW
-import rhino from "../assets/rhino.png"; // NEW
-import elephant from "../assets/elephant.png"; // NEW
+import { BRAND } from "../config/brand.js"; // NEW
 
 export const XP_PER_WORKOUT = 50;
 export const XP_PER_WELLNESS = 20;
 
-export const LEVELS = [
-  {
-    id: "wolverine",
-    name: "Persistent Wolverine",
-    threshold: 0,
-    image: wolverine,
-  }, // NEW
-  { id: "wolf", name: "Resilient Wolf", threshold: 560, image: wolf }, // NEW
-  { id: "rhino", name: "Relentless Rhino", threshold: 1320, image: rhino }, // NEW
-  { id: "elephant", name: "Apex Elephant", threshold: 2360, image: elephant }, // NEW
-];
+// Tier data now comes from the brand config. The math below is brand-agnostic.
+export const LEVELS = BRAND.tiers; // NEW
 
 export function calculateXp(completedWorkoutCount, wellnessCompletionCount) {
   return (
@@ -36,7 +24,7 @@ export function getProgress(xp) {
   const next = LEVELS[index + 1];
 
   if (!next) {
-    // Apex Elephant — no next beast, bar stays full
+    // top tier — no next level, bar stays full
     return { level, next: null, current: xp, max: xp, percent: 100 };
   }
 

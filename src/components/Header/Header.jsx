@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
-import logo from "../../assets/logo.png";
+import { BRAND } from "../../config/brand.js"; // NEW
 import "./Header.css";
 
 function Header({ isLoggedIn, onLoginClick, onRegisterClick, onLogout }) {
@@ -13,9 +13,12 @@ function Header({ isLoggedIn, onLoginClick, onRegisterClick, onLogout }) {
         <NavLink to="/" className="header__logo">
           <img
             className="header__logo-image"
-            src={logo}
-            alt="BeTheBeast Logo"
+            src={BRAND.logo.image}
+            alt={BRAND.logo.alt}
           />
+          {BRAND.logo.wordmark && (
+            <span className="header__wordmark">{BRAND.logo.wordmark}</span>
+          )}
         </NavLink>
 
         <div className="header__auth">

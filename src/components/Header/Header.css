@@ -1,6 +1,6 @@
 .header {
-  background-color: var(--color-black);
-  border-bottom: 2px solid var(--color-red);
+  background-color: var(--color-bg);
+  border-bottom: 2px solid var(--color-accent);
   padding: var(--spacing-md) var(--spacing-lg);
 }
 
@@ -23,19 +23,19 @@
 .header__logo,
 .header__nav-item {
   text-decoration: none;
-  color: var(--color-white);
+  color: var(--color-text);
 }
 
 .header__logo-image {
   width: 90px;
   height: auto;
-  filter: drop-shadow(0 0 8px rgba(220, 20, 60, 0.5));
+  filter: drop-shadow(0 0 8px var(--color-accent-glow));
 }
 
 .header__logo-text {
   font-size: var(--font-size-xl);
   font-weight: 900;
-  color: var(--color-white);
+  color: var(--color-text);
   letter-spacing: 2px;
 }
 
@@ -47,7 +47,7 @@
 .header__nav-item {
   background: none;
   border: none;
-  color: var(--color-white);
+  color: var(--color-text);
   font-size: var(--font-size-base);
   font-weight: 600;
   cursor: pointer;
@@ -56,12 +56,12 @@
 }
 
 .header__nav-item:hover {
-  color: var(--color-red);
+  color: var(--color-accent);
 }
 
 .header__nav-item_active {
-  color: var(--color-white);
-  border-bottom: 2px solid var(--color-red);
+  color: var(--color-text);
+  border-bottom: 2px solid var(--color-accent);
 }
 
 .header__auth {
@@ -72,7 +72,7 @@
 }
 
 .header__username {
-  color: #fff;
+  color: var(--color-text);
   font-size: 14px;
 }
 
@@ -80,8 +80,8 @@
   padding: 8px 16px;
   border: none;
   border-radius: 6px;
-  background: #b34a3f;
-  color: #fff;
+  background: var(--color-accent-fill);
+  color: var(--color-text);
   font-size: 14px;
   cursor: pointer;
   white-space: nowrap;
@@ -89,7 +89,7 @@
 }
 
 .header__auth-btn:hover {
-  background: #9e3f35;
+  background: var(--color-accent-fill-hover);
 }
 
 @media screen and (max-width: 600px) {
@@ -143,4 +143,18 @@
   .header__logo-image {
     width: 70px;
   }
+}
+/* NEW — logo wordmark. Only applies when the brand config supplies one,
+   so BeTheBeast's header layout is untouched. */
+.header__logo_stacked {
+  flex-direction: column;
+  gap: 4px;
+}
+
+.header__wordmark {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text);
 }

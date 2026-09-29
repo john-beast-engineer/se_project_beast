@@ -4,14 +4,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--color-overlay);
   z-index: 100;
 }
 
 .wellness-modal__container {
   position: relative;
-  background: #1c1c1c;
-  color: #fff;
+  background: var(--color-surface);
+  color: var(--color-text);
   width: 90%;
   max-width: 440px;
   padding: 32px;
@@ -27,7 +27,7 @@
   right: 16px;
   background: none;
   border: none;
-  color: #fff;
+  color: var(--color-text);
   font-size: 24px;
   cursor: pointer;
 }
@@ -40,10 +40,10 @@
 .wellness-modal__use-when {
   margin: 0 0 24px;
   padding: 10px 14px;
-  background: rgba(179, 74, 63, 0.15);
-  border-left: 3px solid #b34a3f;
+  background: var(--color-accent-wash);
+  border-left: 3px solid var(--color-accent);
   border-radius: 4px;
-  color: #e0b3ad;
+  color: var(--color-accent-soft);
   font-size: 14px;
 }
 
@@ -65,13 +65,13 @@
   padding: 12px;
   border: none;
   border-radius: 6px;
-  background: #b34a3f;
-  color: #fff;
+  background: var(--color-accent-fill);
+  color: var(--color-text);
   font-size: 16px;
   cursor: pointer;
   transition: background var(--transition-fast);
 }
 
 .wellness-modal__complete:hover {
-  background: #9e3f35;
+  background: var(--color-accent-fill-hover);
 }

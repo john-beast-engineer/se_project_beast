@@ -1,25 +1,57 @@
 /* ================================
-   CSS CUSTOM PROPERTIES (Variables.css)
+   DESIGN TOKENS — BeTheBeast
+   Role-named, so a fork only has to change the values below,
+   never the component CSS that consumes them.
    ================================ */
 
 :root {
-  /* Colors - Black, Red, White Theme */
-  --color-black: #000000; /* Primary - main backgrounds */
-  --color-red: #dc143c; /* Secondary - accents, buttons, highlights */
-  --color-red-dark: #b01030; /* Darker red for hovers */
-  --color-white: #ffffff; /* Text on black backgrounds */
-  --color-gray-dark: #1a1a1a; /* Slightly lighter than pure black */
-  --color-gray: #808080; /* Mid gray */
-  --color-gray-light: #cccccc; /* Light gray for secondary text */
+  /* ---- Surfaces ---- */
+  --color-bg: #000000; /* page background */
+  --color-bg-nav: #0a0a0a; /* bottom nav / chrome */
+  --color-surface: #1a1a1a; /* cards, modals */
+  --color-surface-raised: #262626; /* hovered card, inputs */
+  --color-overlay: rgba(0, 0, 0, 0.7); /* modal scrim */
+  --color-scrim: rgba(0, 0, 0, 0.55); /* image/tile darkening */
+  --color-scrim-soft: rgba(0, 0, 0, 0.4);
 
-  /* Spacing */
+  /* ---- Borders ---- */
+  --color-border-subtle: #1f1f1f;
+  --color-border: #333333;
+  --color-border-strong: #444444;
+
+  /* ---- Text ---- */
+  --color-text: #ffffff;
+  --color-text-muted: #aaaaaa;
+  --color-text-dim: #777777;
+
+  /* ---- Accent ----
+     -accent      = accent TEXT / icons / borders (needs 4.5:1 on --color-surface)
+     -accent-fill = accent BACKGROUND under white text (needs 4.5:1 vs #fff)
+     Two tokens on purpose: no single value passes both tests. */
+  --color-accent: #c0564a; /* 3.87:1 on surface — see note */
+  --color-accent-fill: #b34a3f;
+  --color-accent-fill-hover: #9e3f35;
+  --color-accent-soft: #e0b3ad;
+  --color-accent-glow: rgba(220, 20, 60, 0.5);
+  --color-accent-wash: rgba(179, 74, 63, 0.15);
+
+  /* ---- Secondary ---- */
+  --color-secondary: #d96a5e;
+  --color-secondary-fill: #9e3f35;
+  --color-secondary-fill-hover: #82332b;
+  --color-secondary-soft: #e0b3ad;
+
+  /* ---- Status ---- */
+  --color-danger: #ff6b6b;
+
+  /* ---- Spacing ---- */
   --spacing-xs: 8px;
   --spacing-sm: 16px;
   --spacing-md: 24px;
   --spacing-lg: 48px;
   --spacing-xl: 96px;
 
-  /* Typography */
+  /* ---- Typography ---- */
   --font-primary:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
     sans-serif;
@@ -29,16 +61,16 @@
   --font-size-xl: 32px;
   --font-size-xxl: 48px;
 
-  /* Transitions */
+  /* ---- Transitions ---- */
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
 
-  /* Shadows */
-  --shadow-red-sm: 0 4px 15px rgba(220, 20, 60, 0.3);
-  --shadow-red-md: 0 6px 20px rgba(220, 20, 60, 0.5);
-  --shadow-red-lg: 0 10px 40px rgba(220, 20, 60, 0.3);
+  /* ---- Shadows (role-named, not color-named) ---- */
+  --shadow-accent-sm: 0 4px 15px rgba(179, 74, 63, 0.3);
+  --shadow-accent-md: 0 6px 20px rgba(179, 74, 63, 0.5);
+  --shadow-accent-lg: 0 10px 40px rgba(179, 74, 63, 0.3);
 
-  /* Border Radius */
+  /* ---- Border Radius ---- */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
