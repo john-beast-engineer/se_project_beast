@@ -1,0 +1,20 @@
+{
+  "name": "BeTheBeast",
+  "short_name": "BeTheBeast",
+  "start_url": "/se_project_beast/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#c0564a",
+  "icons": [
+    {
+      "src": "/se_project_beast/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/se_project_beast/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
