@@ -10,3 +10,19 @@
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 24px;
 }
+
+.browse__search {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 14px;
+  margin: 12px 0;
+  font-size: 15px;
+  color: #fff;
+  background: #141414;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+}
+
+.browse__search::placeholder {
+  color: #777;
+}

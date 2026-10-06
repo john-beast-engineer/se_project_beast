@@ -26,6 +26,7 @@ function Browse({ isLoggedIn, workoutBeingEdited, setWorkoutBeingEdited }) {
   const [isNamingOpen, setIsNamingOpen] = useState(false);
   const [pendingExercise, setPendingExercise] = useState(null);
   const [isExerciseModalOpen, setIsExerciseModalOpen] = useState(false);
+  const [query, setQuery] = useState("");
 
   const loadExercises = () => {
     Promise.all([getExercises(), getCustomExercises()])
@@ -113,6 +114,10 @@ function Browse({ isLoggedIn, workoutBeingEdited, setWorkoutBeingEdited }) {
     setPendingExercise(exercise);
   };
 
+  const visibleExercises = exercises.filter((ex) =>
+    ex.name.toLowerCase().includes(query.trim().toLowerCase()),
+  );
+
   return (
     <main className="browse">
       <h2>Browse workouts</h2>
@@ -153,17 +158,40 @@ function Browse({ isLoggedIn, workoutBeingEdited, setWorkoutBeingEdited }) {
         </button>
       )}
 
-      <ul className="browse__list">
-        {exercises.map((exercise) => (
-          <ActivityCard
-            key={exercise.id}
-            exercise={exercise}
-            onCardClick={handleCardClick}
-            onCardAdd={handleStartAdd}
-            isBuildMode={draftWorkout !== null}
-          />
-        ))}
-      </ul>
+      <input
+        className="browse__search"
+        type="search"
+        placeholder="Search exercises"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+
+      {visibleExercises.length === 0 ? (
+        <div className="browse__empty">
+          <p>No exercises match "{query}".</p>
+          {isLoggedIn && (
+            <button
+              className="browse__create-btn"
+              type="button"
+              onClick={() => setIsExerciseModalOpen(true)}
+            >
+              + Create "{query}"
+            </button>
+          )}
+        </div>
+      ) : (
+        <ul className="browse__list">
+          {visibleExercises.map((exercise) => (
+            <ActivityCard
+              key={exercise.id}
+              exercise={exercise}
+              onCardClick={handleCardClick}
+              onCardAdd={handleStartAdd}
+              isBuildMode={draftWorkout !== null}
+            />
+          ))}
+        </ul>
+      )}
 
       {selectedExercise && (
         <ExerciseModal
