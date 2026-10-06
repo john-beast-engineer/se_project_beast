@@ -29,10 +29,16 @@ function Browse({ isLoggedIn, workoutBeingEdited, setWorkoutBeingEdited }) {
   const [query, setQuery] = useState("");
 
   const loadExercises = () => {
-    Promise.all([getExercises(), getCustomExercises()])
-      .then(([wgerData, customData]) => {
-        const wger = wgerData.results.map(normalizeWgerExercise);
-        const custom = customData.map(normalizeCustomExercise);
+    Promise.allSettled([getExercises(), getCustomExercises()])
+      .then(([wgerResult, customResult]) => {
+        const wger =
+          wgerResult.status === "fulfilled"
+            ? wgerResult.value.results.map(normalizeWgerExercise)
+            : [];
+        const custom =
+          customResult.status === "fulfilled"
+            ? customResult.value.map(normalizeCustomExercise)
+            : [];
         setExercises([...custom, ...wger]);
       })
       .catch(console.error);
