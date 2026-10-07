@@ -9,11 +9,13 @@ import WellnessSection from "../WellnessSection/WellnessSection.jsx";
 import WellnessBrowse from "../WellnessBrowse/WellnessBrowse.jsx";
 import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import LoginModal from "../LoginModal/LoginModal.jsx";
+import BottomNav from "../BottomNav/BottomNav.jsx";
+import Splash from "../Splash/Splash.jsx";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 import { register, login, checkToken } from "../../utils/auth.js";
-import { setToken, getToken, removeToken } from "../../utils/token.js";
 import BottomNav from "../BottomNav/BottomNav.jsx";
+import { setToken, getToken, removeToken } from "../../utils/token.js";
 import "./App.css";
 
 function App() {
@@ -91,54 +93,66 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header
-          isLoggedIn={isLoggedIn}
-          onLoginClick={handleOpenLogin}
-          onRegisterClick={handleOpenRegister}
-          onLogout={handleLogout}
-        />
-        <Routes>
-          <Route path="/" element={<Dashboard isLoggedIn={isLoggedIn} />} />
+        {isAuthChecking ? null : !isLoggedIn ? (
+          <Splash
+            onLogin={handleLogin}
+            onRegisterClick={handleOpenRegister}
+            authError={authError}
+          />
+        ) : (
+          <>
+            <Header
+              isLoggedIn={isLoggedIn}
+              onLoginClick={handleOpenLogin}
+              onRegisterClick={handleOpenRegister}
+              onLogout={handleLogout}
+            />
 
-          <Route path="/workout" element={<WorkoutSection />}>
-            <Route
-              index
-              element={
-                <Browse
-                  isLoggedIn={isLoggedIn}
-                  workoutBeingEdited={workoutBeingEdited}
-                  setWorkoutBeingEdited={setWorkoutBeingEdited}
-                />
-              }
-            />
-            <Route
-              path="browse"
-              element={
-                <Browse
-                  isLoggedIn={isLoggedIn}
-                  workoutBeingEdited={workoutBeingEdited}
-                  setWorkoutBeingEdited={setWorkoutBeingEdited}
-                />
-              }
-            />
-            <Route
-              path="saved"
-              element={
-                <ProtectedRoute
-                  isLoggedIn={isLoggedIn}
-                  isAuthChecking={isAuthChecking}
-                >
-                  <Workouts setWorkoutBeingEdited={setWorkoutBeingEdited} />
-                </ProtectedRoute>
-              }
-            />
-          </Route>
+            <Routes>
+              <Route path="/" element={<Dashboard isLoggedIn={isLoggedIn} />} />
 
-          <Route path="/wellness" element={<WellnessSection />}>
-            <Route index element={<WellnessBrowse />} />
-          </Route>
-        </Routes>
-        <BottomNav />
+              <Route path="/workout" element={<WorkoutSection />}>
+                <Route
+                  index
+                  element={
+                    <Browse
+                      isLoggedIn={isLoggedIn}
+                      workoutBeingEdited={workoutBeingEdited}
+                      setWorkoutBeingEdited={setWorkoutBeingEdited}
+                    />
+                  }
+                />
+                <Route
+                  path="browse"
+                  element={
+                    <Browse
+                      isLoggedIn={isLoggedIn}
+                      workoutBeingEdited={workoutBeingEdited}
+                      setWorkoutBeingEdited={setWorkoutBeingEdited}
+                    />
+                  }
+                />
+                <Route
+                  path="saved"
+                  element={
+                    <ProtectedRoute
+                      isLoggedIn={isLoggedIn}
+                      isAuthChecking={isAuthChecking}
+                    >
+                      <Workouts setWorkoutBeingEdited={setWorkoutBeingEdited} />
+                    </ProtectedRoute>
+                  }
+                />
+              </Route>
+
+              <Route path="/wellness" element={<WellnessSection />}>
+                <Route index element={<WellnessBrowse />} />
+              </Route>
+            </Routes>
+
+            <BottomNav />
+          </>
+        )}
 
         <RegisterModal
           isOpen={activeModal === "register"}

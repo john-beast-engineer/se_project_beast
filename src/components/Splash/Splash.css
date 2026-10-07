@@ -1,0 +1,42 @@
+.splash {
+  display: grid;
+  grid-template-columns: auto 360px;
+  gap: 56px;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px;
+  background: #000;
+}
+
+.splash__logo {
+  width: 340px;
+  max-width: 100%;
+}
+
+.splash__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.splash__input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: #fff;
+  background: #141414;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+}
+
+.splash__input::placeholder {
+  color: #777;
+}
+
+.splash__error {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: #e06c5e;
+}
