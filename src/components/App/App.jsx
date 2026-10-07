@@ -14,7 +14,6 @@ import Splash from "../Splash/Splash.jsx";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 import { register, login, checkToken } from "../../utils/auth.js";
-import BottomNav from "../BottomNav/BottomNav.jsx";
 import { setToken, getToken, removeToken } from "../../utils/token.js";
 import "./App.css";
 
