@@ -18,36 +18,45 @@ function Splash({ onLogin, onRegisterClick, authError }) {
       </div>
 
       <div className="splash__pane">
-        <h1 className="splash__headline">Earn your beast.</h1>
-        <p className="splash__sub">Log in to track your XP.</p>
+        <h2 className="form-modal__title">Log In</h2>
 
-        <form className="splash__form" onSubmit={handleSubmit}>
-          <input
-            className="splash__input"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            className="splash__input"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+        <form className="form-modal__form" onSubmit={handleSubmit}>
+          <label className="form-modal__label">
+            Email
+            <input
+              className="form-modal__input"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
 
-          {authError && <p className="splash__error">{authError}</p>}
+          <label className="form-modal__label">
+            Password
+            <input
+              className="form-modal__input"
+              type="password"
+              required
+              minLength={6}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
 
-          <button className="splash__btn splash__btn_primary" type="submit">
+          {authError && <p className="form-modal__error">{authError}</p>}
+
+          <button type="submit" className="form-modal__submit">
             Log In
           </button>
         </form>
 
-        <button className="splash__btn" type="button" onClick={onRegisterClick}>
-          Sign Up
+        <button
+          type="button"
+          className="form-modal__switch"
+          onClick={onRegisterClick}
+        >
+          or Sign Up
         </button>
       </div>
     </div>
