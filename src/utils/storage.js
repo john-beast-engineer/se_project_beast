@@ -29,11 +29,11 @@ export function createWorkout({ name, exercises }) {
   }).then(checkResponse);
 }
 
-export function updateWorkout(id, { completed }) {
+export function updateWorkout(id, updates) {
   return fetch(`${BASE_URL}/workouts/${id}`, {
     method: "PATCH",
     headers: authHeaders(),
-    body: JSON.stringify({ completed }),
+    body: JSON.stringify(updates),
   }).then(checkResponse);
 }
 

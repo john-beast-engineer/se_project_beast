@@ -78,6 +78,11 @@ function Workouts({ setWorkoutBeingEdited }) {
     const updatedExercises = selectedWorkout.exercises.map((ex) =>
       ex.id === editingExercise.id ? { ...ex, sets, reps } : ex,
     );
+    console.log({
+      editingExercise,
+      exercises: selectedWorkout.exercises,
+      updatedExercises,
+    });
 
     updateWorkout(selectedWorkout._id, { exercises: updatedExercises })
       .then((updatedWorkout) => {
