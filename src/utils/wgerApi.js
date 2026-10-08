@@ -43,6 +43,7 @@ export function normalizeCustomExercise(exercise) {
     videoUrl: exercise.videoUrl || null,
     description: exercise.description || "",
     source: "custom",
+    isGlobal: exercise.isGlobal || false,
     _id: exercise._id,
   };
 }

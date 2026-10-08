@@ -35,3 +35,17 @@
   letter-spacing: 0.05em;
   color: var(--color-accent, var(--color-accent));
 }
+
+.card__delete-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  font-size: 16px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}

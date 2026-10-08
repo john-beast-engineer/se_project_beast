@@ -8,6 +8,7 @@ import {
   createWorkout,
   getCustomExercises,
   createCustomExercise,
+  deleteCustomExercise,
   updateWorkout,
 } from "../../utils/storage.js";
 import CustomExerciseModal from "../CustomExerciseModal/CustomExerciseModal.jsx";
@@ -115,6 +116,13 @@ function Browse({ isLoggedIn, workoutBeingEdited, setWorkoutBeingEdited }) {
     }
   };
 
+  const handleDeleteExercise = (exerciseId) => {
+    if (!window.confirm("Delete this exercise? Existing workouts keep it."))
+      return;
+
+    deleteCustomExercise(exerciseId).then(loadExercises).catch(console.error);
+  };
+
   const handleAddFromDetail = (exercise) => {
     setSelectedExercise(null);
     setPendingExercise(exercise);
@@ -193,6 +201,7 @@ function Browse({ isLoggedIn, workoutBeingEdited, setWorkoutBeingEdited }) {
               exercise={exercise}
               onCardClick={handleCardClick}
               onCardAdd={handleStartAdd}
+              onCardDelete={handleDeleteExercise}
               isBuildMode={draftWorkout !== null}
             />
           ))}

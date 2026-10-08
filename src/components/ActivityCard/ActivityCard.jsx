@@ -1,15 +1,26 @@
 import "./ActivityCard.css";
 import logo from "../../assets/logo1.png";
 
-function ActivityCard({ exercise, onCardClick, onCardAdd, isBuildMode }) {
+function ActivityCard({
+  exercise,
+  onCardClick,
+  onCardAdd,
+  onCardDelete,
+  isBuildMode,
+}) {
   const name = exercise.name;
   const category = exercise.category;
   const imageUrl = exercise.imageUrl;
+  const isCustom = exercise.source === "custom" && !exercise.isGlobal;
 
   const handleClick = () => onCardClick?.(exercise);
   const handleAdd = (e) => {
     e.stopPropagation();
     onCardAdd(exercise);
+  };
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    onCardDelete(exercise._id);
   };
 
   return (
@@ -24,6 +35,16 @@ function ActivityCard({ exercise, onCardClick, onCardAdd, isBuildMode }) {
         <h2 className="card__name">{name}</h2>
         <p className="card__category">{category}</p>
       </div>
+
+      {isCustom && onCardDelete && (
+        <button
+          className="card__delete-btn"
+          type="button"
+          onClick={handleDelete}
+        >
+          ×
+        </button>
+      )}
 
       {isBuildMode && (
         <button className="card__add-btn" type="button" onClick={handleAdd}>
