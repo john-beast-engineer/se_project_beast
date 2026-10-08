@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import "./ActivityCard.css";
 import logo from "../../assets/logo1.png";
 
@@ -8,10 +10,13 @@ function ActivityCard({
   onCardDelete,
   isBuildMode,
 }) {
+  const currentUser = useContext(CurrentUserContext);
+
   const name = exercise.name;
   const category = exercise.category;
   const imageUrl = exercise.imageUrl;
-  const isCustom = exercise.source === "custom" && !exercise.isGlobal;
+  const isCustom =
+    exercise.source === "custom" && exercise.owner === currentUser._id;
 
   const handleClick = () => onCardClick?.(exercise);
   const handleAdd = (e) => {
@@ -22,6 +27,8 @@ function ActivityCard({
     e.stopPropagation();
     onCardDelete(exercise._id);
   };
+
+  console.log(exercise.owner, currentUser._id);
 
   return (
     <li className="card" onClick={handleClick}>

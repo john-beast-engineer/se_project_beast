@@ -44,6 +44,7 @@ export function normalizeCustomExercise(exercise) {
     description: exercise.description || "",
     source: "custom",
     isGlobal: exercise.isGlobal || false,
+    owner: exercise.owner,
     _id: exercise._id,
   };
 }
