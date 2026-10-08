@@ -136,6 +136,16 @@
 .workout-modal__edit {
   margin-bottom: 12px;
 }
+
+.workout-modal__edit-sets {
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 6px;
+}
+
 .workout-modal__add {
   margin-top: 12px;
   width: 100%;

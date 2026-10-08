@@ -1,9 +1,9 @@
 import "./SetsRepsModal.css";
 import { useState } from "react";
 
-function SetsRepsModal({ exercise, onConfirm, onClose }) {
-  const [sets, setSets] = useState("");
-  const [reps, setReps] = useState("");
+function SetsRepsModal({ exercise, onConfirm, onClose, isEdit }) {
+  const [sets, setSets] = useState(exercise.sets ?? "");
+  const [reps, setReps] = useState(exercise.reps ?? "");
 
   const name = exercise.name;
 
@@ -48,7 +48,7 @@ function SetsRepsModal({ exercise, onConfirm, onClose }) {
           </label>
 
           <button className="sets-reps-modal__confirm" type="submit">
-            Add to Workout
+            {isEdit ? "Save" : "Add to Workout"}
           </button>
         </form>
       </div>

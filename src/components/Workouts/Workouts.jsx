@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import WorkoutCard from "../WorkoutCard/WorkoutCard.jsx";
 import WorkoutModal from "../WorkoutModal/WorkoutModal.jsx";
+import SetsRepsModal from "../SetsRepsModal/SetsRepsModal.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import {
   getWorkouts,
@@ -13,6 +14,7 @@ function Workouts({ setWorkoutBeingEdited }) {
   const navigate = useNavigate();
   const [workouts, setWorkouts] = useState([]);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
+  const [editingExercise, setEditingExercise] = useState(null);
 
   useEffect(() => {
     getWorkouts()
@@ -72,6 +74,24 @@ function Workouts({ setWorkoutBeingEdited }) {
       .catch(console.error);
   };
 
+  const handleUpdateExercise = (sets, reps) => {
+    const updatedExercises = selectedWorkout.exercises.map((ex) =>
+      ex.id === editingExercise.id ? { ...ex, sets, reps } : ex,
+    );
+
+    updateWorkout(selectedWorkout._id, { exercises: updatedExercises })
+      .then((updatedWorkout) => {
+        setWorkouts((current) =>
+          current.map((w) =>
+            w._id === updatedWorkout._id ? updatedWorkout : w,
+          ),
+        );
+        setSelectedWorkout(updatedWorkout);
+        setEditingExercise(null);
+      })
+      .catch(console.error);
+  };
+
   return (
     <main className="workouts">
       <h2>Your Workouts</h2>
@@ -95,6 +115,7 @@ function Workouts({ setWorkoutBeingEdited }) {
           ))}
         </ul>
       )}
+
       {selectedWorkout && (
         <WorkoutModal
           workout={selectedWorkout}
@@ -102,6 +123,16 @@ function Workouts({ setWorkoutBeingEdited }) {
           onComplete={handleCompleteWorkout}
           onRemoveExercise={handleRemoveExercise}
           onAddExercise={handleEditWorkout}
+          onEditExercise={setEditingExercise}
+        />
+      )}
+
+      {editingExercise && (
+        <SetsRepsModal
+          exercise={editingExercise}
+          isEdit
+          onConfirm={handleUpdateExercise}
+          onClose={() => setEditingExercise(null)}
         />
       )}
     </main>

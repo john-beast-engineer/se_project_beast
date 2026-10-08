@@ -18,6 +18,7 @@ function WorkoutModal({
   onComplete,
   onRemoveExercise,
   onAddExercise,
+  onEditExercise,
 }) {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -73,13 +74,22 @@ function WorkoutModal({
                   </button>
 
                   {isEditing && (
-                    <button
-                      className="workout-modal__remove"
-                      type="button"
-                      onClick={() => onRemoveExercise(exercise.id)}
-                    >
-                      ×
-                    </button>
+                    <>
+                      <button
+                        className="workout-modal__edit-sets"
+                        type="button"
+                        onClick={() => onEditExercise(exercise)}
+                      >
+                        ✎
+                      </button>
+                      <button
+                        className="workout-modal__remove"
+                        type="button"
+                        onClick={() => onRemoveExercise(exercise.id)}
+                      >
+                        ×
+                      </button>
+                    </>
                   )}
                 </div>
 
